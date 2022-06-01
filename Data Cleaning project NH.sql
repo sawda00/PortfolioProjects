@@ -45,7 +45,7 @@ LOAD DATA LOCAL INFILE '/Users/sawda/Downloads/NashvilleHousingData.csv' IGNORE
     
     IGNORE 1 ROWS
 
-	(@vUniqueID, @vParcelID, @vLandUse, @vPropertyAddress, @vSaleDate, @vSalePrice, @vLegalReference, @vSoldAsVacant, @vOwnerName, 
+    (@vUniqueID, @vParcelID, @vLandUse, @vPropertyAddress, @vSaleDate, @vSalePrice, @vLegalReference, @vSoldAsVacant, @vOwnerName, 
     @vOwnerAddress, @vAcreage, @vTaxDistrict, @vLandValue, @vBuildingValue, @vTotalValue, @vYearBuilt, @vBedrooms, @vFullBath, @vHalfBath)
     
     SET
@@ -59,12 +59,12 @@ LOAD DATA LOCAL INFILE '/Users/sawda/Downloads/NashvilleHousingData.csv' IGNORE
     SoldAsVacant = NULLIF(@vSoldAsVacant,''), 
     OwnerName = NULLIF(@vOwnerName,''),
     OwnerAddress = NULLIF(@vOwnerAddress,''),
-	Acreage = NULLIF(@vAcreage,''),
+    Acreage = NULLIF(@vAcreage,''),
     TaxDistrict = NULLIF(@vTaxDistrict,''),
     LandValue = NULLIF(@vLandValue,''),
     BuildingValue = NULLIF(@vBuildingValue,''),
     TotalValue = NULLIF(@vTotalValue,''),
-	YearBuilt = NULLIF(@vYearBuilt,''),
+    YearBuilt = NULLIF(@vYearBuilt,''),
     Bedrooms = NULLIF(@vBedrooms,''),
     FullBath = NULLIF(@vFullBath,''),
     HalfBath = NULLIF(@vHalfBath,'');
@@ -210,12 +210,12 @@ UPDATE NashvilleHousing
 	 SELECT *,
 	  ROW_NUMBER() OVER(
 	  PARTITION BY ParcelID, 
-				   PropertyAddress, 
-				   SalePrice, 
-				   SaleDate, 
-				   LegalReference
-				   ORDER BY UniqueID
-				   ) row_num
+		       PropertyAddress, 
+		       SalePrice, 
+		       SaleDate, 
+		       LegalReference
+		       ORDER BY UniqueID
+		       ) row_num
 	  FROM PortfolioProject.NashvilleHousing
 	  )
 	SELECT *
@@ -229,11 +229,11 @@ UPDATE NashvilleHousing
 	 FROM PortfolioProject.NashvilleHousing p1
 	 INNER JOIN PortfolioProject.NashvilleHousing p2
 	 ON p2.ParcelID = p1.ParcelID AND
-					  p2.PropertyAddress = p1.PropertyAddress AND
-					  p2.SalePrice = p1.SalePrice AND
-					  p2.SaleDate = p1.SaleDate AND
-					  p2.LegalReference = p1.LegalReference AND
-					  p2.UniqueID < p1.UniqueID
+	    p2.PropertyAddress = p1.PropertyAddress AND
+	    p2.SalePrice = p1.SalePrice AND
+	    p2.SaleDate = p1.SaleDate AND
+	    p2.LegalReference = p1.LegalReference AND
+	    p2.UniqueID < p1.UniqueID
 	 ORDER BY p1.PropertyAddress;
 
 
@@ -245,11 +245,11 @@ DELETE p1
  FROM PortfolioProject.NashvilleHousing p1
  INNER JOIN PortfolioProject.NashvilleHousing p2
   ON p2.ParcelID = p1.ParcelID AND
-				   p2.PropertyAddress = p1.PropertyAddress AND
-				   p2.SalePrice = p1.SalePrice AND
-				   p2.SaleDate = p1.SaleDate AND
-				   p2.LegalReference = p1.LegalReference AND
-				   p2.UniqueID < p1.UniqueID;
+     p2.PropertyAddress = p1.PropertyAddress AND
+     p2.SalePrice = p1.SalePrice AND
+     p2.SaleDate = p1.SaleDate AND
+     p2.LegalReference = p1.LegalReference AND
+     p2.UniqueID < p1.UniqueID;
                    
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -264,3 +264,4 @@ ALTER TABLE PortfolioProject.NashvilleHousing
  DROP COLUMN TaxDistrict, 
  DROP COLUMN PropertyAddress,
  DROP COLUMN SaleDate; 
+ 
