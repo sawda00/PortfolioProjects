@@ -1,3 +1,10 @@
+/*
+
+Cleaning data in SQL queries
+
+*/
+
+
 -- Importing Nashville Housing data
 
 USE PortfolioProject;
