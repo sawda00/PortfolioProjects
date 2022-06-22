@@ -1,21 +1,37 @@
+/*
+
+Covid 19 Data Exploration 
+
+Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
+
+*/
+
+
+-- Selecting Data that we are going to be starting with
+
 SELECT Location, Date, Total_Cases, New_Cases, Total_Deaths, Population
  FROM PortfolioProject.CovidDeaths
  WHERE continent IS NOT NULL -- some data in location has continents
  ORDER BY 1, 2;
 
+
 -- Looking at Total Cases vs Total Deaths
 -- Shows likelihood of dying if you contract covid in your country
+
 SELECT Location, Date, Total_Cases, Total_Deaths, (total_deaths/total_cases)*100 AS DeathPercentage
  FROM PortfolioProject.CovidDeaths 
  WHERE location LIKE '%kingdom%' AND continent IS NOT NULL 
  ORDER BY 1, 2;
  
+ 
 -- Looking at the Total Cases vs Population
 -- Shows what percentage of population got Covid
+
 SELECT Location, Date, Population, Total_Cases, (total_cases/population)*100 AS PercentPopulationInfected
  FROM PortfolioProject.CovidDeaths
  WHERE location LIKE '%kingdom%'
  ORDER BY 1, 2;
+ 
  
 -- Looking at countries with the Highest Infection Rate compared to Population
 
@@ -24,6 +40,7 @@ SELECT Location, Population, MAX(total_cases) AS HighestInfectionCount, MAX((tot
  GROUP BY location, population
  ORDER BY PercentPopulationInfected DESC;
  
+ 
 -- Showing countries with Highest Death Count per Population
 
 SELECT Location, MAX(total_deaths) AS TotalDeathCount
@@ -31,6 +48,7 @@ SELECT Location, MAX(total_deaths) AS TotalDeathCount
  WHERE continent IS NOT NULL 
  GROUP BY location
  ORDER BY TotalDeathCount DESC;
+ 
  
 -- LET'S BREAK THINGS DOWN BY CONTINENT
  
@@ -48,6 +66,7 @@ SELECT Location, MAX(total_deaths) AS TotalDeathCount
  GROUP BY location
  ORDER BY TotalDeathCount DESC;
 
+
 -- GLOBAL NUMBERS
 
 SELECT Date, SUM(new_cases) AS Total_Cases, SUM(new_deaths) AS Total_Deaths, SUM(new_deaths)/SUM(new_cases)*100 AS DeathPercentage
@@ -60,6 +79,7 @@ SELECT SUM(new_cases) AS Total_Cases, SUM(new_deaths) AS Total_Deaths, SUM(new_d
  FROM PortfolioProject.CovidDeaths 
  WHERE continent IS NOT NULL
  ORDER BY 1, 2;
+
 
 -- Looking at Total Population vs Vaccinations
 
@@ -116,6 +136,7 @@ INSERT INTO PercentPopulationVaccinated
   
 SELECT *, (RollingPeopleVaccinated/Population)*100
   FROM PercentPopulationVaccinated;
+  
   
 -- Creating View to store data for later visualizations
 
